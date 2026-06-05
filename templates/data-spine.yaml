@@ -1,0 +1,19 @@
+# Data spine - the machine-readable record behind each estimate one-pager.
+# Powers the roadmap rollup and the block-sum. ~15 lines, not prose.
+project: ""                 # project name
+tier: swag                  # swag | refined
+size: ""                    # Small | Medium | Large | X-Large | Custom
+week_range: ""              # e.g. "2-3 weeks"
+range_lean: ""              # low | mid | high (optional)
+block_sum_days: { min: 0, max: 0 }
+dimensions:
+  impact: ""                # Small | Medium | Large | X-Large
+  scope: ""
+  discovery: ""
+overrides: {}               # e.g. { research: none }
+project_plan: []            # ordered list of building blocks
+research: ""                # none | validation | discovery + validation | custom
+feedback: ""                # async | live (>=1 each) | live x2
+confidence: ""              # low | moderate | high
+risks: []                   # list of strings
+tighten_with: []            # what would raise confidence (SWAG->PRD upgrade path)
