@@ -1,0 +1,14 @@
+project: Pick up where you left off
+tier: swag
+size: Medium
+week_range: "2-3 weeks"
+range_lean: low            # ~2 wks, because validation UXR was overridden out
+block_sum_days: { min: 9, max: 11 }
+dimensions:
+  impact: Medium           # A/B-tested but modest KR impact
+  scope: Medium            # single new component, product-owned, single audience
+  discovery: Medium        # existing insights, a few directions to explore
+overrides:
+  research: none           # user overrode Medium default "validation only"
+project_plan: [Explore, Critique, Refine, Review]   # no Validation UXR after override
+confidence: moderate

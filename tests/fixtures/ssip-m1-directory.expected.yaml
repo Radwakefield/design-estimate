@@ -1,0 +1,9 @@
+project: "SSIP: M1 - Directory"
+tier: swag
+size: Small
+week_range: "Days-1 week"
+block_sum_days: { min: 3, max: 7 }
+dimensions: { impact: Small, scope: Small, discovery: Small }
+project_plan: [Explore, "Critique (async)", "Refine (async)"]
+research: none
+feedback: async
