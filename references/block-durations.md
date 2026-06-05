@@ -19,8 +19,10 @@ range (min sum, max sum). The block sum should land INSIDE the matrix week range
 doesn't, that is a calibration signal (see calibrate workflow).
 
 ## Changelog
-- 2026-06-05: Initial defaults. Calibrated so Small ~3-7d, Medium (with validation) ~10-15d,
-  Large ~18-25d, matching the matrix ranges. Pending real-world calibration against shipped projects.
+- 2026-06-05: Initial defaults. Small ~3-7d and Medium (with validation) ~10-15d track their
+  matrix ranges. Large computes to ~18-32d — the high end runs ABOVE the 4-5wk (20-25d) matrix
+  range because Discovery UXR (5-10) + three Refines (1-3 each) are wide; this is a known
+  calibration item to tighten against shipped projects. Pending real-world calibration.
 - 2026-06-05 (post-validation): block sum is the SECONDARY/advisory figure; the matrix week
   range is primary. When an override removes a block (e.g. Validation UXR ~5d from a Medium),
   the block sum legitimately drops below the matrix range — that gap is the expected

@@ -2,7 +2,7 @@ project: Time-based therapy
 tier: swag
 size: Large
 week_range: "4-5 weeks"
-block_sum_days: { min: 18, max: 25 }
+block_sum_days: { min: 18, max: 32 }   # computed from block-durations.md; high end runs above the 4-5wk matrix range (calibration signal)
 dimensions: { impact: Large, scope: Large, discovery: Large }
 project_plan: ["Discovery UXR", Explore, "Critique 1", "Review 1", Refine, "Validation UXR", Refine, "Critique 2", "Review 2", Refine]
 research: "discovery + validation"
