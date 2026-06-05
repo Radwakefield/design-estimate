@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+  design-estimate one-pager template.
+  Self-contained: Rula Design System tokens are INLINED below (no external @import of
+  the DS file), so this renders on-brand in any repo. Jokker .otf files do NOT ship
+  with the skill; the @font-face src points at an optional fonts/ path and the
+  --font-display stack falls back to Hanken Grotesk / system-ui, which renders cleanly.
+
+  TWO MODES live in this file. Render ONE of them and delete the other:
+    - ROLLUP MODE          (rollup of slices: .timeline + per-slice .slice plans)
+    - SINGLE-PROJECT MODE  (one .plan building-block timeline + optional .override)
+  Fill points are marked with {{...}}.
+-->
+<title>Design estimate: {{PROJECT}}</title>
+<style>
+  /* ============================================================
+     Rula Design System tokens — INLINED (do not @import the DS file).
+     DM Sans loads from Google Fonts. Jokker is licensed and would ship
+     from /fonts; if absent, --font-display falls back gracefully.
+     ============================================================ */
+  @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap");
+
+  /* Jokker @font-face — optional; .otf files may not be present. The
+     --font-display fallback stack renders cleanly without them. */
+  @font-face { font-family: "Jokker"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/Jokker-Regular.otf") format("opentype"); }
+  @font-face { font-family: "Jokker"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/Jokker-Medium.otf") format("opentype"); }
+  @font-face { font-family: "Jokker"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/Jokker-Semibold.otf") format("opentype"); }
+  @font-face { font-family: "Jokker"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/Jokker-Bold.otf") format("opentype"); }
+
+  :root {
+    /* COLOR — Brand Primaries (iris purple system) */
+    --rula-iris-900:   #291551;
+    --rula-iris-800:   #371B77;
+    --rula-iris-700:   #46219E;
+    --rula-iris-600:   #6C4CEA;
+    --rula-iris-500:   #997EFF;
+    --rula-iris-400:   #AD99FF;
+    --rula-iris-300:   #D4CAFF;
+    --rula-iris-200:   #D4C9FC;
+    --rula-iris-100:   #E9E5FF;
+
+    /* COLOR — Sign-in accent */
+    --rula-dawn-500:   #F3D457;
+
+    /* COLOR — Spruce */
+    --rula-spruce-900: #003139;
+
+    /* COLOR — Sand Neutrals */
+    --rula-sand-50:    #FBF9F2;
+    --rula-sand-100:   #F7F5EF;
+    --rula-sand-300:   #A19A88;
+
+    /* COLOR — Cool Neutrals */
+    --rula-ink-1000:   #15171A;
+    --rula-ink-900:    #1D1733;
+    --rula-ink-800:    #262135;
+    --rula-ink-700:    #26272A;
+    --rula-ink-500:    #56575B;
+    --rula-ink-400:    #868686;
+    --rula-ink-200:    #EBEDF0;
+    --rula-white:      #FFFFFF;
+    --rula-black:      #000000;
+
+    /* SEMANTIC — Surfaces */
+    --bg-canvas:       var(--rula-white);
+    --bg-canvas-warm:  var(--rula-sand-100);
+    --bg-canvas-soft:  var(--rula-sand-50);
+    --bg-card:         var(--rula-white);
+    --bg-card-warm:    rgba(247, 245, 239, 0.85);
+    --bg-pill:         var(--rula-iris-100);
+    --bg-overlay:      rgba(41, 21, 81, 0.6);
+
+    /* SEMANTIC — Text */
+    --fg-primary:      var(--rula-iris-900);
+    --fg-on-dark:      var(--rula-sand-100);
+    --fg-secondary:    var(--rula-iris-900);
+    --fg-tertiary:     var(--rula-iris-900);
+    --fg-accent:       var(--rula-iris-900);
+    --fg-inverse:      var(--rula-white);
+    --fg-spruce:       var(--rula-spruce-900);
+
+    /* SEMANTIC — Borders */
+    --border-subtle:   rgba(161, 154, 136, 0.30);
+    --border-strong:   var(--rula-iris-900);
+    --border-line:     var(--rula-ink-200);
+    --border-inverse:  rgba(255, 255, 255, 0.20);
+
+    /* ELEVATION */
+    --shadow-card:        0 2px 6px 0 rgba(0, 0, 0, 0.05);
+    --shadow-floating:    0 8px 24px 0 rgba(41, 21, 81, 0.12);
+
+    /* RADII */
+    --radius-xs:   8px;
+    --radius-sm:   12px;
+    --radius-md:   20px;
+    --radius-lg:   24px;
+    --radius-xl:   32px;
+    --radius-pill: 999px;
+
+    /* SPACING (4-px base) */
+    --space-1:  4px;  --space-2:  8px;  --space-3:  12px; --space-4:  16px;
+    --space-5:  20px; --space-6:  24px; --space-7:  32px; --space-8:  40px;
+    --space-9:  48px; --space-10: 64px;
+
+    /* TYPOGRAPHY — Family Tokens */
+    --font-display: "Jokker", "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+    --font-body:    "DM Sans", system-ui, -apple-system, sans-serif;
+    --font-utility: "Inter", "Scto Grotesk A", system-ui, sans-serif;
+    --font-mono:    ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* Weights */
+    --weight-regular:  400;
+    --weight-medium:   500;
+    --weight-semibold: 600;
+    --weight-bold:     700;
+
+    /* Tracking */
+    --tracking-headline: -0.01em;
+    --tracking-body: 0em;
+
+    /* ---- estimate-doc tints / inks ---- */
+    --tint-s:  var(--rula-iris-100);
+    --tint-sm: var(--rula-iris-200);
+    --tint-m:  var(--rula-iris-300);
+    --tint-xl: #F6DCDC; --xl-ink: #8A2B2B;
+    --risk-bg: #FBE3E1; --warn-bg: #FBEFC9;
+    /* editorial reading inks (warm, near-monochrome — Interface Craft idiom) */
+    --read:      #44403b;   /* body text */
+    --read-soft: #6b6862;   /* secondary / lede */
+    --read-faint:#9c9890;   /* muted nav, captions */
+    --rule:      #e7e5e4;   /* hairline section rule */
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #FCFBF8; color: var(--fg-primary);
+    font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+
+  /* ---- two-column reading shell ---- */
+  .shell { display: grid; grid-template-columns: 232px minmax(0, 512px); gap: 56px;
+    max-width: 880px; margin: 0 auto; padding: 64px 40px 140px; }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; gap: 0; padding: 40px 28px 100px; }
+    .rail { position: static !important; margin-bottom: 36px; }
+  }
+
+  /* ---- left rail / anchors (no back link) ---- */
+  .rail { position: sticky; top: 64px; align-self: start; }
+  .toc a { display: block; text-decoration: none; color: var(--read-faint);
+    font-size: 14px; line-height: 1.45; padding: 7px 0; transition: color .15s ease; }
+  .toc a:hover { color: var(--rula-iris-700); }
+  .toc a.active { color: var(--rula-iris-900); font-weight: 600; }
+
+  /* ---- main column ---- */
+  .doc-head { display: block; }
+  h1 { font-family: var(--font-display); font-weight: var(--weight-semibold);
+    font-size: 40px; line-height: 1.1; letter-spacing: var(--tracking-headline);
+    color: var(--rula-iris-900); margin: 0; }
+  /* .verdict-badge sits ABOVE the title, left-aligned, pill chip.
+     Default = iris-100 fill. For an XL->split verdict, add class "xl"
+     for the soft-red tint. */
+  .verdict-badge { display: inline-block; background: var(--rula-iris-100); color: var(--rula-iris-900);
+    font-family: var(--font-body); font-weight: 600; font-size: 13px;
+    border-radius: var(--radius-pill); padding: 7px 16px; white-space: nowrap; margin: 0 0 14px; }
+  .verdict-badge.xl { background: var(--tint-xl); color: var(--xl-ink); }
+  .lede { font-size: 17px; line-height: 1.65; color: var(--read-soft); margin: 22px 0 0; max-width: 64ch; }
+  .submeta { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 18px 0 0; }
+  .chip { background: var(--bg-pill); color: var(--fg-primary); border-radius: var(--radius-pill);
+    padding: 3px 11px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+  .chip.status { background: var(--rula-dawn-500); color: var(--rula-iris-900); }
+
+  section { margin-top: 64px; scroll-margin-top: 56px; }
+  section > h2 { font-family: var(--font-display); font-weight: var(--weight-semibold);
+    font-size: 27px; line-height: 1.2; letter-spacing: var(--tracking-headline);
+    color: var(--rula-iris-900); margin: 0; padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule); }
+  .body { padding-top: 22px; }
+  p { font-size: 16px; line-height: 1.7; color: var(--read); margin: 0 0 16px; }
+  ul { margin: 0 0 16px; padding-left: 20px; }
+  li { font-size: 16px; line-height: 1.65; color: var(--read); margin-bottom: 11px; }
+  strong { font-weight: 600; color: var(--rula-iris-900); }
+  .muted { color: var(--read-soft); }
+
+  /* ---- rollup timeline (ROLLUP MODE) ---- */
+  .timeline { display: flex; margin: 4px 0 8px; }
+  .t-item { flex: 1 1 0; position: relative; text-align: center; padding-top: 24px; }
+  .t-item::before { content: ""; position: absolute; top: 30px; left: 0; right: 0; height: 2px;
+    background: var(--rula-iris-200); z-index: 0; }
+  .t-item:first-child::before { left: 50%; }
+  .t-item:last-child::before  { right: 50%; }
+  .t-date { position: absolute; top: 0; left: 0; right: 0; font-family: var(--font-utility);
+    font-size: 11px; font-weight: 600; letter-spacing: .03em; color: var(--rula-ink-400); }
+  .t-node { position: relative; z-index: 1; width: 16px; height: 16px; border-radius: 50%;
+    margin: 0 auto 12px; background: var(--rula-iris-700); border: 3px solid #FCFBF8;
+    box-shadow: 0 0 0 1px var(--rula-iris-300); }
+  .t-item.lead .t-node { box-shadow: 0 0 0 5px var(--rula-iris-100); }
+  .t-title { font-weight: 600; font-size: 13px; color: var(--rula-iris-900); margin: 0 4px 6px; line-height: 1.25; }
+  .t-size { display: inline-block; border-radius: var(--radius-sm); padding: 1px 9px; font-size: 11px;
+    font-weight: 600; color: var(--rula-iris-900); }
+  .t-size.s { background: var(--tint-s); } .t-size.m { background: var(--tint-m); } .t-size.sm { background: var(--tint-sm); }
+  .total { color: var(--rula-ink-500); font-size: 13px; margin: 12px 0 0; }
+
+  /* ---- per-slice plans (ROLLUP MODE) ---- */
+  .slice { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg);
+    padding: 16px 18px; margin-bottom: 12px; background: var(--bg-card); }
+  .slice-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 13px; flex-wrap: wrap; }
+  .slice-head .name { font-family: var(--font-display); font-weight: 600; font-size: 15px;
+    color: var(--rula-iris-900); letter-spacing: var(--tracking-headline); }
+  .slice-head .dur { margin-left: auto; color: var(--rula-ink-400); font-size: 12px; white-space: nowrap; }
+  .slice-head .note { flex-basis: 100%; color: var(--rula-ink-500); font-size: 12px; line-height: 1.45; }
+
+  /* ---- building-block plan (both modes) ---- */
+  /* All .pill are uniform solid fill — no .gate dashed / .uxr sand variants. */
+  .plan { display: flex; align-items: center; flex-wrap: wrap; row-gap: 10px; margin: 4px 0 6px; }
+  .pill { background: var(--rula-iris-100); color: var(--rula-iris-900); border-radius: var(--radius-pill);
+    padding: 7px 16px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .conn { width: 20px; height: 2px; background: var(--rula-iris-200); margin: 0 7px; flex: 0 0 auto; }
+  /* tighter pills inside per-slice cards */
+  .slice .plan { row-gap: 8px; }
+  .slice .pill { padding: 5px 13px; font-size: 12px; }
+  .slice .conn { width: 16px; margin: 0 6px; }
+  /* .override caption — plain muted text */
+  .override { display: block; color: var(--read-soft); font-size: 13px; line-height: 1.6; margin-top: 14px; }
+
+  .flag { background: var(--risk-bg); border-radius: var(--radius-xs); padding: 0 5px; }
+  .warnli { background: var(--warn-bg); border-radius: var(--radius-xs); padding: 1px 5px; }
+
+  @media print { body { background: #fff; } .rail { display: none; } .shell { grid-template-columns: 1fr; max-width: none; } }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- LEFT RAIL -->
+  <aside class="rail">
+    <nav class="toc">
+      <!-- TOC: keep anchors for the sections actually present in the chosen mode. -->
+      <a href="#summary">Summary</a>
+      <!-- ROLLUP MODE anchors: -->
+      <a href="#timeline">Rollup timeline</a>
+      <a href="#plans">Per-slice plans</a>
+      <!-- SINGLE-PROJECT MODE anchor (use instead of the two above): -->
+      <!-- <a href="#plan">Project plan</a> -->
+      <a href="#rationale">Rationale</a>
+      <a href="#needs">Design needs</a>
+      <a href="#risks">Risks &amp; tighten</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="doc-head">
+      <!-- .verdict-badge: add class "xl" for an X-Large -> split verdict (soft-red tint). -->
+      <span class="verdict-badge">{{VERDICT_BADGE}}</span>
+      <h1>{{PROJECT}}</h1>
+    </div>
+
+    <section id="summary" style="margin-top: 22px;">
+      <p class="lede">{{LEDE}}</p>
+      <div class="submeta">
+        <span class="chip">{{WEEK_RANGE}}</span>
+        <span class="chip">{{BLOCK_SUM}}</span>
+        <span class="chip status">Confidence: {{CONFIDENCE}}</span>
+        <span class="chip">{{TIER}}</span>
+      </div>
+    </section>
+
+    <!-- ===========================================================
+         RENDER ONE OF THE TWO MODE BLOCKS BELOW, THEN DELETE THE OTHER.
+         =========================================================== -->
+
+    <!-- ROLLUP MODE: timeline + per-slice plans -->
+    <section id="timeline">
+      <h2>Rollup timeline</h2>
+      <div class="body">
+        <p class="muted">When each slice runs, laid end-to-end (one designer, one project at a time):</p>
+        <div class="timeline">
+          <!-- {{#each slice}} : repeat one .t-item per slice. Mark the first with class "lead".
+               .t-size class: s = Small, sm = S-M, m = Medium (etc.) -->
+          <div class="t-item lead">
+            <div class="t-date">{{SLICE_WEEKS}}</div><div class="t-node"></div>
+            <div class="t-title">{{SLICE_NAME}}</div><span class="t-size {{SLICE_SIZE_CLASS}}">{{SLICE_SIZE}}</span>
+          </div>
+          <!-- {{/each}} -->
+        </div>
+        <p class="total"><strong>{{WEEK_RANGE}}</strong> {{ROLLUP_TOTAL_NOTE}}</p>
+      </div>
+    </section>
+
+    <section id="plans">
+      <h2>Per-slice plans</h2>
+      <div class="body">
+        <p class="muted">Each slice ships as its own small project, so each gets its own design plan.</p>
+        <!-- {{#each slice}} : repeat one .slice card per slice. -->
+        <div class="slice">
+          <div class="slice-head">
+            <span class="name">{{SLICE_NAME}}</span>
+            <span class="t-size {{SLICE_SIZE_CLASS}}">{{SLICE_SIZE}}</span>
+            <span class="dur">{{SLICE_DURATION}}</span>
+            <span class="note">{{SLICE_NOTE}}</span>
+          </div>
+          <div class="plan">
+            <!-- {{#each block}} uniform solid pills joined by .conn -->
+            <span class="pill">{{BLOCK}}</span><span class="conn"></span>
+            <span class="pill">{{BLOCK}}</span>
+            <!-- {{/each}} -->
+          </div>
+        </div>
+        <!-- {{/each}} -->
+      </div>
+    </section>
+    <!-- /ROLLUP MODE -->
+
+    <!-- SINGLE-PROJECT MODE: one project-plan timeline -->
+    <section id="plan">
+      <h2>Project plan</h2>
+      <div class="body">
+        <p class="muted">Building-block sequence for {{SIZE_PHRASE}}.</p>
+        <div class="plan">
+          <!-- {{#each block}} uniform solid pills joined by .conn -->
+          <span class="pill">{{BLOCK}}</span><span class="conn"></span>
+          <span class="pill">{{BLOCK}}</span>
+          <!-- {{/each}} -->
+        </div>
+        <!-- Optional .override caption — include only when a dimension default was overridden; else delete. -->
+        <span class="override">{{OVERRIDE_NOTE}}</span>
+      </div>
+    </section>
+    <!-- /SINGLE-PROJECT MODE -->
+
+    <section id="rationale">
+      <h2>Rationale by dimension</h2>
+      <div class="body">
+        <ul>
+          <li><strong>Impact &mdash; {{IMPACT_SIZE}}:</strong> {{IMPACT_EVIDENCE}}</li>
+          <li><strong>Scope &mdash; {{SCOPE_SIZE}}:</strong> {{SCOPE_EVIDENCE}}</li>
+          <li><strong>Discovery &mdash; {{DISCOVERY_SIZE}}:</strong> {{DISCOVERY_EVIDENCE}}</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="needs">
+      <h2>Design needs</h2>
+      <div class="body">
+        <ul>{{DESIGN_NEEDS}}</ul>
+      </div>
+    </section>
+
+    <section id="risks">
+      <h2>Risks &amp; what would tighten this</h2>
+      <div class="body">
+        <ul>{{RISKS}}</ul>
+        <p class="muted" style="font-size:12px;margin-top:18px;">
+          Estimate is a guide, not a commitment. Primary figure = T-shirt week range; the working-day
+          sum is a tunable precision layer.
+        </p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // scroll-spy: highlight the rail anchor for the section in view
+  const links = Array.from(document.querySelectorAll('.toc a'));
+  const byId = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const a = byId.get(e.target.id);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-12% 0px -78% 0px', threshold: 0 });
+  document.querySelectorAll('section[id]').forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
