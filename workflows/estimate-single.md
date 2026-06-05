@@ -42,8 +42,12 @@ confidence + name exact crit/review steps. Failed items -> flagged risks.
 
 ## 9. Emit + render
 Fill `templates/data-spine.yaml` and write it next to the one-pager. Render
-`templates/one-pager.html` (timeline pills + crit/review markers). Default output dir:
-`H2 Planning/Estimates/<project-slug>.html` (+ `.yaml`) in the CALLING repo.
+`templates/one-pager.html` (timeline pills + crit/review markers).
+**Output dir = the MAIN Rula checkout: `/Users/radwakefield/Rula/H2 Planning/Estimates/<project-slug>.html`
+(+ `.yaml`).** Write there even when invoked from a git worktree — the one-pager styles itself via
+`@import "../../App/Rula Design System/colors_and_type.css"`, and that DS file only exists in the
+main checkout. Writing to a worktree renders the page UNSTYLED. Match the finalized estimates already
+there (`pick-up-where-you-left-off.html` = single mode, `dbt-improvements.html` = rollup mode).
 
 ## 10. Close
 State confidence and "what would tighten this" (the SWAG->PRD upgrade path).

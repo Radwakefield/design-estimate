@@ -5,127 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--
   design-estimate one-pager template.
-  Self-contained: Rula Design System tokens are INLINED below (no external @import of
-  the DS file), so this renders on-brand in any repo. Jokker .otf files do NOT ship
-  with the skill; the @font-face src points at an optional fonts/ path and the
-  --font-display stack falls back to Hanken Grotesk / system-ui, which renders cleanly.
+
+  STYLING: imports the live Rula Design System (Jokker + DM Sans, iris palette) via the
+  @import below. This is the SOURCE-OF-TRUTH styling matching the finalized estimates in
+  ~/Rula/H2 Planning/Estimates/ (dbt-improvements.html = rollup, pick-up-where-you-left-off.html
+  = single). Do NOT inline tokens or fall back to Google Fonts — that drifts from the real design.
+
+  OUTPUT LOCATION: the @import path "../../App/Rula Design System/colors_and_type.css" only
+  resolves when this file lives in the MAIN Rula checkout at ~/Rula/H2 Planning/Estimates/.
+  Always write the rendered .html there (NOT in a git worktree — worktrees lack the DS file and
+  the page renders unstyled). See workflows/estimate-single.md step 9.
 
   TWO MODES live in this file. Render ONE of them and delete the other:
-    - ROLLUP MODE          (rollup of slices: .timeline + per-slice .slice plans)
-    - SINGLE-PROJECT MODE  (one .plan building-block timeline + optional .override)
+    - ROLLUP MODE          (rollup of slices: .timeline + per-slice .slice plans; NO Design needs section)
+    - SINGLE-PROJECT MODE  (one .plan building-block timeline + optional .override; INCLUDES Design needs)
   Fill points are marked with {{...}}.
 -->
 <title>Design estimate: {{PROJECT}}</title>
 <style>
-  /* ============================================================
-     Rula Design System tokens — INLINED (do not @import the DS file).
-     DM Sans loads from Google Fonts. Jokker is licensed and would ship
-     from /fonts; if absent, --font-display falls back gracefully.
-     ============================================================ */
-  @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap");
-
-  /* Jokker @font-face — optional; .otf files may not be present. The
-     --font-display fallback stack renders cleanly without them. */
-  @font-face { font-family: "Jokker"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/Jokker-Regular.otf") format("opentype"); }
-  @font-face { font-family: "Jokker"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/Jokker-Medium.otf") format("opentype"); }
-  @font-face { font-family: "Jokker"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/Jokker-Semibold.otf") format("opentype"); }
-  @font-face { font-family: "Jokker"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/Jokker-Bold.otf") format("opentype"); }
+  /* Rula Design System tokens (Jokker + DM Sans, iris palette, radii, shadows). */
+  @import url("../../App/Rula Design System/colors_and_type.css");
 
   :root {
-    /* COLOR — Brand Primaries (iris purple system) */
-    --rula-iris-900:   #291551;
-    --rula-iris-800:   #371B77;
-    --rula-iris-700:   #46219E;
-    --rula-iris-600:   #6C4CEA;
-    --rula-iris-500:   #997EFF;
-    --rula-iris-400:   #AD99FF;
-    --rula-iris-300:   #D4CAFF;
-    --rula-iris-200:   #D4C9FC;
-    --rula-iris-100:   #E9E5FF;
-
-    /* COLOR — Sign-in accent */
-    --rula-dawn-500:   #F3D457;
-
-    /* COLOR — Spruce */
-    --rula-spruce-900: #003139;
-
-    /* COLOR — Sand Neutrals */
-    --rula-sand-50:    #FBF9F2;
-    --rula-sand-100:   #F7F5EF;
-    --rula-sand-300:   #A19A88;
-
-    /* COLOR — Cool Neutrals */
-    --rula-ink-1000:   #15171A;
-    --rula-ink-900:    #1D1733;
-    --rula-ink-800:    #262135;
-    --rula-ink-700:    #26272A;
-    --rula-ink-500:    #56575B;
-    --rula-ink-400:    #868686;
-    --rula-ink-200:    #EBEDF0;
-    --rula-white:      #FFFFFF;
-    --rula-black:      #000000;
-
-    /* SEMANTIC — Surfaces */
-    --bg-canvas:       var(--rula-white);
-    --bg-canvas-warm:  var(--rula-sand-100);
-    --bg-canvas-soft:  var(--rula-sand-50);
-    --bg-card:         var(--rula-white);
-    --bg-card-warm:    rgba(247, 245, 239, 0.85);
-    --bg-pill:         var(--rula-iris-100);
-    --bg-overlay:      rgba(41, 21, 81, 0.6);
-
-    /* SEMANTIC — Text */
-    --fg-primary:      var(--rula-iris-900);
-    --fg-on-dark:      var(--rula-sand-100);
-    --fg-secondary:    var(--rula-iris-900);
-    --fg-tertiary:     var(--rula-iris-900);
-    --fg-accent:       var(--rula-iris-900);
-    --fg-inverse:      var(--rula-white);
-    --fg-spruce:       var(--rula-spruce-900);
-
-    /* SEMANTIC — Borders */
-    --border-subtle:   rgba(161, 154, 136, 0.30);
-    --border-strong:   var(--rula-iris-900);
-    --border-line:     var(--rula-ink-200);
-    --border-inverse:  rgba(255, 255, 255, 0.20);
-
-    /* ELEVATION */
-    --shadow-card:        0 2px 6px 0 rgba(0, 0, 0, 0.05);
-    --shadow-floating:    0 8px 24px 0 rgba(41, 21, 81, 0.12);
-
-    /* RADII */
-    --radius-xs:   8px;
-    --radius-sm:   12px;
-    --radius-md:   20px;
-    --radius-lg:   24px;
-    --radius-xl:   32px;
-    --radius-pill: 999px;
-
-    /* SPACING (4-px base) */
-    --space-1:  4px;  --space-2:  8px;  --space-3:  12px; --space-4:  16px;
-    --space-5:  20px; --space-6:  24px; --space-7:  32px; --space-8:  40px;
-    --space-9:  48px; --space-10: 64px;
-
-    /* TYPOGRAPHY — Family Tokens */
-    --font-display: "Jokker", "Hanken Grotesk", system-ui, -apple-system, sans-serif;
-    --font-body:    "DM Sans", system-ui, -apple-system, sans-serif;
-    --font-utility: "Inter", "Scto Grotesk A", system-ui, sans-serif;
-    --font-mono:    ui-monospace, SFMono-Regular, Menlo, monospace;
-
-    /* Weights */
-    --weight-regular:  400;
-    --weight-medium:   500;
-    --weight-semibold: 600;
-    --weight-bold:     700;
-
-    /* Tracking */
-    --tracking-headline: -0.01em;
-    --tracking-body: 0em;
-
-    /* ---- estimate-doc tints / inks ---- */
     --tint-s:  var(--rula-iris-100);
     --tint-sm: var(--rula-iris-200);
     --tint-m:  var(--rula-iris-300);
+    --tint-l:  var(--rula-iris-400);
     --tint-xl: #F6DCDC; --xl-ink: #8A2B2B;
     --risk-bg: #FBE3E1; --warn-bg: #FBEFC9;
     /* editorial reading inks (warm, near-monochrome — Interface Craft idiom) */
@@ -134,7 +39,6 @@
     --read-faint:#9c9890;   /* muted nav, captions */
     --rule:      #e7e5e4;   /* hairline section rule */
   }
-
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { margin: 0; background: #FCFBF8; color: var(--fg-primary);
@@ -148,8 +52,11 @@
     .rail { position: static !important; margin-bottom: 36px; }
   }
 
-  /* ---- left rail / anchors (no back link) ---- */
+  /* ---- left rail / anchors ---- */
   .rail { position: sticky; top: 64px; align-self: start; }
+  .back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    color: var(--read-soft); font-size: 14px; margin-bottom: 32px; }
+  .back:hover { color: var(--rula-iris-900); }
   .toc a { display: block; text-decoration: none; color: var(--read-faint);
     font-size: 14px; line-height: 1.45; padding: 7px 0; transition: color .15s ease; }
   .toc a:hover { color: var(--rula-iris-700); }
@@ -161,8 +68,7 @@
     font-size: 40px; line-height: 1.1; letter-spacing: var(--tracking-headline);
     color: var(--rula-iris-900); margin: 0; }
   /* .verdict-badge sits ABOVE the title, left-aligned, pill chip.
-     Default = iris-100 fill. For an XL->split verdict, add class "xl"
-     for the soft-red tint. */
+     Default = iris-100 fill. For an XL->split verdict, add class "xl" for the soft-red tint. */
   .verdict-badge { display: inline-block; background: var(--rula-iris-100); color: var(--rula-iris-900);
     font-family: var(--font-body); font-weight: 600; font-size: 13px;
     border-radius: var(--radius-pill); padding: 7px 16px; white-space: nowrap; margin: 0 0 14px; }
@@ -201,7 +107,10 @@
   .t-title { font-weight: 600; font-size: 13px; color: var(--rula-iris-900); margin: 0 4px 6px; line-height: 1.25; }
   .t-size { display: inline-block; border-radius: var(--radius-sm); padding: 1px 9px; font-size: 11px;
     font-weight: 600; color: var(--rula-iris-900); }
-  .t-size.s { background: var(--tint-s); } .t-size.m { background: var(--tint-m); } .t-size.sm { background: var(--tint-sm); }
+  /* size-tint scale: s -> sm -> m -> l (xl uses the soft-red split tint) */
+  .t-size.s { background: var(--tint-s); } .t-size.sm { background: var(--tint-sm); }
+  .t-size.m { background: var(--tint-m); } .t-size.l { background: var(--tint-l); }
+  .t-size.xl { background: var(--tint-xl); color: var(--xl-ink); }
   .total { color: var(--rula-ink-500); font-size: 13px; margin: 12px 0 0; }
 
   /* ---- per-slice plans (ROLLUP MODE) ---- */
@@ -214,16 +123,15 @@
   .slice-head .note { flex-basis: 100%; color: var(--rula-ink-500); font-size: 12px; line-height: 1.45; }
 
   /* ---- building-block plan (both modes) ---- */
-  /* All .pill are uniform solid fill — no .gate dashed / .uxr sand variants. */
+  /* Base sizes = SINGLE-PROJECT mode (larger). .slice overrides shrink them for rollup cards. */
   .plan { display: flex; align-items: center; flex-wrap: wrap; row-gap: 10px; margin: 4px 0 6px; }
   .pill { background: var(--rula-iris-100); color: var(--rula-iris-900); border-radius: var(--radius-pill);
     padding: 7px 16px; font-size: 13px; font-weight: 600; white-space: nowrap; }
   .conn { width: 20px; height: 2px; background: var(--rula-iris-200); margin: 0 7px; flex: 0 0 auto; }
-  /* tighter pills inside per-slice cards */
-  .slice .plan { row-gap: 8px; }
+  .slice .plan { row-gap: 8px; margin: 0; }
   .slice .pill { padding: 5px 13px; font-size: 12px; }
   .slice .conn { width: 16px; margin: 0 6px; }
-  /* .override caption — plain muted text */
+  /* .override caption (SINGLE-PROJECT mode) — plain muted text */
   .override { display: block; color: var(--read-soft); font-size: 13px; line-height: 1.6; margin-top: 14px; }
 
   .flag { background: var(--risk-bg); border-radius: var(--radius-xs); padding: 0 5px; }
@@ -246,7 +154,8 @@
       <!-- SINGLE-PROJECT MODE anchor (use instead of the two above): -->
       <!-- <a href="#plan">Project plan</a> -->
       <a href="#rationale">Rationale</a>
-      <a href="#needs">Design needs</a>
+      <!-- SINGLE-PROJECT MODE only (rollup mode omits Design needs): -->
+      <!-- <a href="#needs">Design needs</a> -->
       <a href="#risks">Risks &amp; tighten</a>
     </nav>
   </aside>
@@ -273,14 +182,14 @@
          RENDER ONE OF THE TWO MODE BLOCKS BELOW, THEN DELETE THE OTHER.
          =========================================================== -->
 
-    <!-- ROLLUP MODE: timeline + per-slice plans -->
+    <!-- ROLLUP MODE: timeline + per-slice plans (NO Design needs section) -->
     <section id="timeline">
       <h2>Rollup timeline</h2>
       <div class="body">
         <p class="muted">When each slice runs, laid end-to-end (one designer, one project at a time):</p>
         <div class="timeline">
           <!-- {{#each slice}} : repeat one .t-item per slice. Mark the first with class "lead".
-               .t-size class: s = Small, sm = S-M, m = Medium (etc.) -->
+               .t-size class: s = Small, sm = S-M, m = Medium, l = Large, xl = X-Large. -->
           <div class="t-item lead">
             <div class="t-date">{{SLICE_WEEKS}}</div><div class="t-node"></div>
             <div class="t-title">{{SLICE_NAME}}</div><span class="t-size {{SLICE_SIZE_CLASS}}">{{SLICE_SIZE}}</span>
@@ -294,7 +203,7 @@
     <section id="plans">
       <h2>Per-slice plans</h2>
       <div class="body">
-        <p class="muted">Each slice ships as its own small project, so each gets its own design plan.</p>
+        <p class="muted">Each slice ships as its own project, so each gets its own design plan.</p>
         <!-- {{#each slice}} : repeat one .slice card per slice. -->
         <div class="slice">
           <div class="slice-head">
@@ -315,7 +224,7 @@
     </section>
     <!-- /ROLLUP MODE -->
 
-    <!-- SINGLE-PROJECT MODE: one project-plan timeline -->
+    <!-- SINGLE-PROJECT MODE: one project-plan timeline + Design needs -->
     <section id="plan">
       <h2>Project plan</h2>
       <div class="body">
@@ -343,6 +252,7 @@
       </div>
     </section>
 
+    <!-- SINGLE-PROJECT MODE only: Design needs. DELETE this whole section in ROLLUP MODE. -->
     <section id="needs">
       <h2>Design needs</h2>
       <div class="body">
