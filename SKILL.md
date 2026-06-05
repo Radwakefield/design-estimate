@@ -1,6 +1,6 @@
 ---
 name: design-estimate
-description: Estimates design effort and timeline for a roadmap project using Rula's T-shirt sizing framework and project runbook. Use when sizing a design project, estimating a one-pager or PRD, planning design capacity for a roadmap or half, or producing a design estimate one-pager. Triggers on: estimate this project, how long will this take, size this, t-shirt size, design estimate, design sizing, roadmap planning, capacity planning.
+description: "Estimates design effort and timeline for a roadmap project using Rula's T-shirt sizing framework and project runbook. Use when sizing a design project, estimating a one-pager or PRD, planning design capacity for a roadmap or half, or producing a design estimate one-pager. Triggers on: estimate this project, how long will this take, size this, t-shirt size, design estimate, design sizing, roadmap planning, capacity planning."
 ---
 
 # Design estimate
