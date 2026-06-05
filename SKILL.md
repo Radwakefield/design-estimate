@@ -48,3 +48,8 @@ and Project Runbook. Produces a shareable HTML one-pager + a YAML data spine.
   "1-2 weeks each" framings are an input to challenge, not accept.
 - **X-Large → don't produce a plan.** Recommend splitting with product; if the doc lists
   independent slices, offer the roadmap-rollup decomposition instead.
+- **Always write output to the MAIN Rula checkout** (`/Users/radwakefield/Rula/H2 Planning/Estimates/`),
+  even when invoked from a git worktree. The one-pager `@import`s the live DS file, which only exists
+  in the main checkout — writing to a worktree renders it UNSTYLED. The finalized files there
+  (`dbt-improvements.html` rollup, `pick-up-where-you-left-off.html` single) are the styling
+  source of truth, NOT a re-inlined/Google-Fonts variant.

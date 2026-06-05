@@ -29,7 +29,10 @@ otherwise. State the recommended sequence and why (e.g. "AVOB first — biggest 
 ## 5. Render
 Produce a portfolio HTML view using rollup mode of `templates/one-pager.html`: the rollup
 timeline (a node per slice + cumulative week markers, lead slice emphasized) plus the
-per-slice plans, the half-boundary line, and the over-capacity flag. Aggregate the spines
-into a single `roadmap.yaml`. Output to `H2 Planning/Estimates/roadmap.html`.
+per-slice plans, the half-boundary line, and the over-capacity flag. Rollup mode OMITS the
+Design needs section. Aggregate the spines into a single `roadmap.yaml`.
+**Output to the MAIN Rula checkout: `/Users/radwakefield/Rula/H2 Planning/Estimates/roadmap.html`**
+(NOT a worktree — the DS `@import` only resolves in the main checkout; see estimate-single.md step 9).
+A single X-Large project decomposed into slices renders to `<project-slug>.html` there too.
 
 Commit message: `feat: add roadmap-rollup workflow`
