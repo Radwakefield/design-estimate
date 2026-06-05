@@ -19,5 +19,11 @@ range (min sum, max sum). The block sum should land INSIDE the matrix week range
 doesn't, that is a calibration signal (see calibrate workflow).
 
 ## Changelog
-- 2026-06-05: Initial defaults. Calibrated so Small ~3-7d, Medium ~10-15d, Large ~18-25d,
-  matching the matrix ranges. Pending real-world calibration against shipped projects.
+- 2026-06-05: Initial defaults. Calibrated so Small ~3-7d, Medium (with validation) ~10-15d,
+  Large ~18-25d, matching the matrix ranges. Pending real-world calibration against shipped projects.
+- 2026-06-05 (post-validation): block sum is the SECONDARY/advisory figure; the matrix week
+  range is primary. When an override removes a block (e.g. Validation UXR ~5d from a Medium),
+  the block sum legitimately drops below the matrix range — that gap is the expected
+  "calibration signal", not an error. Example: overridden Medium plan [Explore, Critique,
+  Refine, Review] sums to ~5-9d (≈1-2 wks), below the 2-3 wk Medium range, flagging a light
+  Medium. Fixtures' block_sum_days are derived from this table; recompute them when durations change.
