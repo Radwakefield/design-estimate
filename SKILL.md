@@ -6,7 +6,8 @@ description: "Estimates design effort and timeline for a roadmap project using R
 # Design estimate
 
 Estimates design effort + timeline from Rula's Design Estimation (T-shirt sizing) framework
-and Project Runbook. Produces a shareable HTML one-pager + a YAML data spine.
+and Project Runbook. Produces a shareable HTML one-pager. A small YAML data spine is OPTIONAL —
+emitted only on request or when feeding a roadmap rollup (see `workflows/estimate-single.md` step 9).
 
 ## Route by input
 - **A one-pager** -> SWAG tier. Read `workflows/estimate-single.md`.

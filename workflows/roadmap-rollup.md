@@ -9,7 +9,9 @@ rollup of smaller projects rather than just returning "split it with product."
 
 ## 1. Gather the project list
 Accept one-pagers/PRDs, or existing `*.yaml` data spines. For any without a spine, run
-`estimate-single` (SWAG by default) to produce one. **Exclude open-ended / unbounded items**
+`estimate-single` (SWAG by default) to produce one — a rollup IS the case where the spine is
+needed, so generate the `.yaml` here even though single estimates skip it by default.
+**Exclude open-ended / unbounded items**
 ("other quick wins", "continually triage feedback", etc.) from the totals — flag them as
 un-sizable scope to fence, do not silently fold them into the sum.
 

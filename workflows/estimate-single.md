@@ -41,13 +41,18 @@ Score the PRD against `references/quality-bars.md`. Passed -> can narrow the ran
 confidence + name exact crit/review steps. Failed items -> flagged risks.
 
 ## 9. Emit + render
-Fill `templates/data-spine.yaml` and write it next to the one-pager. Render
-`templates/one-pager.html` (timeline pills + crit/review markers).
-**Output dir = the MAIN Rula checkout: `/Users/radwakefield/Rula/H2 Planning/Estimates/<project-slug>.html`
-(+ `.yaml`).** Write there even when invoked from a git worktree — the one-pager styles itself via
+Render `templates/one-pager.html` (timeline pills + crit/review markers) — the HTML one-pager is the
+single default deliverable.
+**Output = the MAIN Rula checkout: `/Users/radwakefield/Rula/H2 Planning/Estimates/<project-slug>.html`.**
+Write there even when invoked from a git worktree — the one-pager styles itself via
 `@import "../../App/Rula Design System/colors_and_type.css"`, and that DS file only exists in the
 main checkout. Writing to a worktree renders the page UNSTYLED. Match the finalized estimates already
 there (`pick-up-where-you-left-off.html` = single mode, `dbt-improvements.html` = rollup mode).
+
+**The YAML data spine is OPTIONAL — skip it by default.** Only also write `<project-slug>.yaml`
+(from `templates/data-spine.yaml`) when EITHER the user explicitly asks for it, OR this estimate
+feeds a roadmap rollup (the rollup stacks projects from their spines — see `roadmap-rollup.md`).
+A standalone single estimate does not need one.
 
 ## 10. Close
 State confidence and "what would tighten this" (the SWAG->PRD upgrade path).
