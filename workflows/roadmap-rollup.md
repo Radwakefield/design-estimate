@@ -37,4 +37,7 @@ Design needs section. Aggregate the spines into a single `roadmap.yaml`.
 (NOT a worktree — the DS `@import` only resolves in the main checkout; see estimate-single.md step 9).
 A single X-Large project decomposed into slices renders to `<project-slug>.html` there too.
 
+**After writing the file, auto-open it:** `open "/Users/radwakefield/Rula/H2 Planning/Estimates/roadmap.html"`
+(macOS) so the user sees the styled portfolio view immediately.
+
 Commit message: `feat: add roadmap-rollup workflow`

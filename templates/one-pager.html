@@ -74,6 +74,7 @@
     border-radius: var(--radius-pill); padding: 7px 16px; white-space: nowrap; margin: 0 0 14px; }
   .verdict-badge.xl { background: var(--tint-xl); color: var(--xl-ink); }
   .lede { font-size: 17px; line-height: 1.65; color: var(--read-soft); margin: 22px 0 0; max-width: 64ch; }
+  .byline { font-size: 13px; line-height: 1.5; color: var(--read-faint); margin: 12px 0 0; }
   .submeta { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 18px 0 0; }
   .chip { background: var(--bg-pill); color: var(--fg-primary); border-radius: var(--radius-pill);
     padding: 3px 11px; font-size: 12px; font-weight: 500; white-space: nowrap; }
@@ -169,7 +170,15 @@
     </div>
 
     <section id="summary" style="margin-top: 22px;">
+      <!-- LEDE — write like a thoughtful colleague briefing a teammate, NOT a database record.
+           3-4 flowing sentences. OPEN with the human problem / intent in plain language (what the
+           patient or user runs into today, what this tries to change), THEN land the verdict (what
+           size, and why it leans where it does). Do NOT start with "Source one-pager by X" or lead
+           with the author/date/status — those live in the muted .byline line below, never the first
+           words. Name the author naturally if at all (e.g. "Michelle's one-pager proposes…"). -->
       <p class="lede">{{LEDE}}</p>
+      <!-- BYLINE — light attribution, de-emphasized. e.g. "From Michelle Geng's one-pager · May 29, 2026 · in progress" -->
+      <p class="byline">{{BYLINE}}</p>
       <div class="submeta">
         <span class="chip">{{WEEK_RANGE}}</span>
         <span class="chip">{{BLOCK_SUM}}</span>

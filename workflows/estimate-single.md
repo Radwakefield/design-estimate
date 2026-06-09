@@ -43,11 +43,20 @@ confidence + name exact crit/review steps. Failed items -> flagged risks.
 ## 9. Emit + render
 Render `templates/one-pager.html` (timeline pills + crit/review markers) — the HTML one-pager is the
 single default deliverable.
+
+**Write the summary in a human voice.** The lede should read like a thoughtful colleague briefing a
+teammate — open with the human problem/intent in plain sentences, THEN land the verdict (size + why it
+leans where it does). Do NOT open with "Source one-pager by X" or lead with author/date/status; those
+go in the de-emphasized `.byline` line under the lede. See the LEDE/BYLINE notes in the template.
 **Output = the MAIN Rula checkout: `/Users/radwakefield/Rula/H2 Planning/Estimates/<project-slug>.html`.**
 Write there even when invoked from a git worktree — the one-pager styles itself via
 `@import "../../App/Rula Design System/colors_and_type.css"`, and that DS file only exists in the
 main checkout. Writing to a worktree renders the page UNSTYLED. Match the finalized estimates already
 there (`pick-up-where-you-left-off.html` = single mode, `dbt-improvements.html` = rollup mode).
+
+**After writing the file, auto-open it** so the user can see the styled result immediately:
+`open "/Users/radwakefield/Rula/H2 Planning/Estimates/<project-slug>.html"` (macOS). Open the
+final rendered HTML only — not the YAML.
 
 **The YAML data spine is OPTIONAL — skip it by default.** Only also write `<project-slug>.yaml`
 (from `templates/data-spine.yaml`) when EITHER the user explicitly asks for it, OR this estimate
