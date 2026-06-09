@@ -1,6 +1,6 @@
-# Runbook phases & building blocks
+# Design Playbooks — phases & building blocks
 
-Source: Project runbook v3. The estimate's project plan is composed of building blocks
+Source: Design Playbooks. The estimate's project plan is composed of building blocks
 that map onto these five lifecycle phases.
 
 ## The five phases

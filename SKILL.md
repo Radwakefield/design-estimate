@@ -1,12 +1,12 @@
 ---
 name: design-estimate
-description: "Estimates design effort and timeline for a roadmap project using Rula's T-shirt sizing framework and project runbook. Use when sizing a design project, estimating a one-pager or PRD, planning design capacity for a roadmap or half, or producing a design estimate one-pager. Triggers on: estimate this project, how long will this take, size this, t-shirt size, design estimate, design sizing, roadmap planning, capacity planning."
+description: "Estimates design effort and timeline for a roadmap project using Rula's T-shirt sizing framework and Design Playbooks. Use when sizing a design project, estimating a one-pager or PRD, planning design capacity for a roadmap or half, or producing a design estimate one-pager. Triggers on: estimate this project, how long will this take, size this, t-shirt size, design estimate, design sizing, roadmap planning, capacity planning."
 ---
 
 # Design estimate
 
 Estimates design effort + timeline from Rula's Design Estimation (T-shirt sizing) framework
-and Project Runbook. Produces a shareable HTML one-pager. A small YAML data spine is OPTIONAL —
+and Design Playbooks. Produces a shareable HTML one-pager. A small YAML data spine is OPTIONAL —
 emitted only on request or when feeding a roadmap rollup (see `workflows/estimate-single.md` step 9).
 
 ## Route by input
@@ -20,8 +20,9 @@ emitted only on request or when feeding a roadmap rollup (see `workflows/estimat
 - `references/block-durations.md` - tunable working-day defaults for the block sum.
 
 ## Load as needed
-- `references/runbook-phases.md` - building-block + phase definitions.
-- `references/quality-bars.md` - kick-off checklist / crit / review (Refined tier).
+- `references/design-playbooks.md` - building-block + phase definitions.
+- `references/quality-bars.md` - one-pager engagement model (SWAG reading lens) + kick-off
+  checklist / crit / review (Refined tier).
 - `references/calibration-log.md` - past projects (calibrate workflow).
 
 ## Core principles

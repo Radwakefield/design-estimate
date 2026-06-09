@@ -9,12 +9,20 @@ Ask only if genuinely ambiguous.
 ## 2. Infer the three dimensions
 Read the doc. For each of Impact / Scope / Discovery, match against the descriptors in
 `references/sizing-matrix.md` and pick a size, quoting the supporting evidence.
+**For a one-pager (SWAG), read it through the one-pager engagement model in
+`references/quality-bars.md`** — its section→dimension map tells you where each dimension's
+evidence lives: Problem statement → Discovery, Solution → Scope, Success criteria → Impact,
+Confidence level → Discovery/risk.
 
 ## 3. Adaptive, confidence-gated interview
 Per dimension:
 - **Confident** -> state the read + quoted evidence; move on.
 - **Uncertain / evidence missing** -> ask ONE targeted question so the user can supply
   context the doc lacks. Record what you had to ask (it lowers confidence and is auditable).
+**SWAG calibration:** run the one-pager readiness checklist (`references/quality-bars.md`) —
+problem grounded in evidence? success criteria linked to OKRs (not placeholder `+x%`)? confidence
+section names risks/gaps? Each miss lowers confidence, becomes one of your targeted questions, and
+lands as a flagged risk in step 10. It does NOT change the size.
 
 ## 4. Resolve the size
 Apply `references/sizing-matrix.md` size-resolution rule: highest-of-three; disagreement

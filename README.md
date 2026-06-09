@@ -2,8 +2,23 @@
 
 A Claude Code skill that turns a design one-pager, PRD, or roadmap list into a
 defensible **effort + timeline estimate** — using Rula's Design Estimation (T-shirt
-sizing) framework and Project Runbook. It produces a shareable, design-system-styled
+sizing) framework and Design Playbooks. It produces a shareable, design-system-styled
 HTML one-pager you can drop in front of cross-functional partners and leadership.
+
+## ⚡ Quick install
+
+Paste this into your Terminal and press Enter:
+
+```sh
+npx skills add Radwakefield/design-estimate -a claude-code
+```
+
+Then open Claude Code and say *"estimate this one-pager"* with a doc.
+
+- **Want it in every Claude agent** (Desktop + Code)? Swap the flag: `npx skills add Radwakefield/design-estimate -a '*'`
+- **Update later:** `npx skills update design-estimate`
+- **Repo / share link:** https://github.com/Radwakefield/design-estimate
+- New to the Terminal, or hit an error? See [Installing & updating](#installing--updating) just below.
 
 ## Installing & updating
 
@@ -103,3 +118,24 @@ read it right away. It includes a plain-language summary, the building-block pro
 plan, the rationale for each dimension, design needs, and the risks / what-would-tighten-this.
 A YAML data spine (`<project-slug>.yaml`) is written too when you ask for one or when the
 estimate feeds a roadmap rollup.
+
+## Built from Rula's own frameworks
+
+This isn't an invented heuristic — it encodes three existing Rula design frameworks so the
+estimates line up with how the team already works:
+
+- **Design Estimation (T-shirt sizing) framework** — the sizing engine. Supplies the three
+  dimensions (Impact, Scope, Discovery), the S/M/L/XL matrix, and the size → duration → outputs
+  mapping. This is what turns a doc into a size and a week range.
+- **Design Critique framework (“Design Crits @ Rula”)** — defines where critique earns its keep
+  (at *divergence*, after exploring, and at *convergence*, after validating) and the review
+  expectations per phase. This is what places the **Crit** and **Review** building blocks in each
+  plan and scales how many you get with the size.
+- **Design Kick-off (readiness checklist)** — the PRD gate: Problem Framing, Understanding &
+  Evidence, Impact & Scope, Execution Readiness. In the **Refined** tier the skill scores a PRD
+  against this checklist to justify higher confidence — and any item the PRD doesn't clear becomes
+  a flagged risk.
+
+All three sit on top of the **Design Playbooks** — the five lifecycle phases (Alignment →
+Divergent Exploration → Validation → Convergent Refinement → Commitment) that the building blocks
+map onto, so a generated plan reads like a real Rula project, not a generic checklist.
