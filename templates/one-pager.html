@@ -30,7 +30,7 @@
     --tint-s:  var(--rula-iris-100);
     --tint-sm: var(--rula-iris-200);
     --tint-m:  var(--rula-iris-300);
-    --tint-l:  var(--rula-iris-400);
+    --tint-l:  var(--rula-iris-300);  /* same light family as Medium — size label carries the distinction */
     --tint-xl: #F6DCDC; --xl-ink: #8A2B2B;
     --risk-bg: #FBE3E1; --warn-bg: #FBEFC9;
     /* editorial reading inks (warm, near-monochrome — Interface Craft idiom) */
@@ -93,30 +93,45 @@
   .muted { color: var(--read-soft); }
 
   /* ---- rollup timeline (ROLLUP MODE) ---- */
+  /* Left-aligned reading order per node: size chip on top, node + connector, title, then week range. */
   .timeline { display: flex; margin: 4px 0 8px; }
-  .t-item { flex: 1 1 0; position: relative; text-align: center; padding-top: 24px; }
-  .t-item::before { content: ""; position: absolute; top: 30px; left: 0; right: 0; height: 2px;
+  .t-item { flex: 1 1 0; position: relative; text-align: left; padding: 26px 16px 0 0; }
+  /* connector runs from this node's center to the next node's center; hidden on the last item */
+  .t-item::before { content: ""; position: absolute; top: 33px; left: 8px; right: -8px; height: 2px;
     background: var(--rula-iris-200); z-index: 0; }
-  .t-item:first-child::before { left: 50%; }
-  .t-item:last-child::before  { right: 50%; }
-  .t-date { position: absolute; top: 0; left: 0; right: 0; font-family: var(--font-utility);
-    font-size: 11px; font-weight: 600; letter-spacing: .03em; color: var(--rula-ink-400); }
-  .t-node { position: relative; z-index: 1; width: 16px; height: 16px; border-radius: 50%;
-    margin: 0 auto 12px; background: var(--rula-iris-700); border: 3px solid #FCFBF8;
-    box-shadow: 0 0 0 1px var(--rula-iris-300); }
-  .t-item.lead .t-node { box-shadow: 0 0 0 5px var(--rula-iris-100); }
-  .t-title { font-weight: 600; font-size: 13px; color: var(--rula-iris-900); margin: 0 4px 6px; line-height: 1.25; }
+  .t-item:last-child::before { display: none; }
+  /* size chip — shared by the timeline and the slice cards */
   .t-size { display: inline-block; border-radius: var(--radius-sm); padding: 1px 9px; font-size: 11px;
     font-weight: 600; color: var(--rula-iris-900); }
   /* size-tint scale: s -> sm -> m -> l (xl uses the soft-red split tint) */
   .t-size.s { background: var(--tint-s); } .t-size.sm { background: var(--tint-sm); }
   .t-size.m { background: var(--tint-m); } .t-size.l { background: var(--tint-l); }
   .t-size.xl { background: var(--tint-xl); color: var(--xl-ink); }
+  /* timeline only: SIZE sits where the date used to — top-left of the node */
+  .t-item .t-size { position: absolute; top: 0; left: 0; }
+  .t-node { position: relative; z-index: 1; width: 16px; height: 16px; border-radius: 50%;
+    margin: 0 0 12px; background: var(--rula-iris-700); border: 3px solid #FCFBF8;
+    box-shadow: 0 0 0 1px var(--rula-iris-300); }
+  .t-item.lead .t-node { box-shadow: 0 0 0 5px var(--rula-iris-100); }
+  .t-title { font-weight: 600; font-size: 13px; color: var(--rula-iris-900); margin: 0 8px 4px 0; line-height: 1.25; }
+  /* WEEK range now lives under the title */
+  .t-weeks { font-family: var(--font-utility); font-size: 11px; font-weight: 600; letter-spacing: .03em;
+    color: var(--rula-ink-400); }
+  /* shared Foundation node (decomposed-project rollups): a leading phase that feeds every slice */
+  .t-item.foundation .t-node { background: var(--rula-iris-900); box-shadow: 0 0 0 4px var(--rula-iris-100); }
+  .t-eyebrow { position: absolute; top: 0; left: 0; font-family: var(--font-utility); font-size: 10px;
+    font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--rula-iris-700); }
   .total { color: var(--rula-ink-500); font-size: 13px; margin: 12px 0 0; }
 
   /* ---- per-slice plans (ROLLUP MODE) ---- */
   .slice { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg);
     padding: 16px 18px; margin-bottom: 12px; background: var(--bg-card); }
+  /* size chip sits on its own line ABOVE the slice header */
+  .slice > .t-size { margin-bottom: 8px; }
+  /* shared Foundation card — tinted, leads the per-slice list (decomposed-project rollups) */
+  .slice.foundation { background: var(--rula-iris-100); border-color: var(--rula-iris-200); }
+  .slice .eyebrow { display: block; font-family: var(--font-utility); font-size: 10px; font-weight: 700;
+    letter-spacing: .07em; text-transform: uppercase; color: var(--rula-iris-700); margin-bottom: 8px; }
   .slice-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 13px; flex-wrap: wrap; }
   .slice-head .name { font-family: var(--font-display); font-weight: 600; font-size: 15px;
     color: var(--rula-iris-900); letter-spacing: var(--tracking-headline); }
@@ -170,13 +185,15 @@
     </div>
 
     <section id="summary" style="margin-top: 22px;">
-      <!-- LEDE — write like a thoughtful colleague briefing a teammate, NOT a database record.
-           3-4 flowing sentences. OPEN with the human problem / intent in plain language (what the
-           patient or user runs into today, what this tries to change), THEN land the verdict (what
-           size, and why it leans where it does). Do NOT start with "Source one-pager by X" or lead
-           with the author/date/status — those live in the muted .byline line below, never the first
-           words. Name the author naturally if at all (e.g. "Michelle's one-pager proposes…"). -->
+      <!-- SUMMARY = TWO short paragraphs in a warm, colleague voice (NOT a database record):
+           1) LEDE — the human problem / intent in plain language (what the patient or user runs
+              into today, what this is trying to change, and the gist of the approach). Do NOT start
+              with "Source one-pager by X" or lead with author/date/status.
+           2) ESTIMATE — its own paragraph: the verdict (what size, and why it leans where it does).
+           Keep them as two separate <p class="lede"> blocks so the size reads as a distinct beat.
+           Name the author naturally if at all (e.g. "Michelle's one-pager proposes…"). -->
       <p class="lede">{{LEDE}}</p>
+      <p class="lede">{{ESTIMATE}}</p>
       <!-- BYLINE — light attribution, de-emphasized. e.g. "From Michelle Geng's one-pager · May 29, 2026 · in progress" -->
       <p class="byline">{{BYLINE}}</p>
       <div class="submeta">
@@ -197,27 +214,57 @@
       <div class="body">
         <p class="muted">When each slice runs, laid end-to-end (one designer, one project at a time):</p>
         <div class="timeline">
-          <!-- {{#each slice}} : repeat one .t-item per slice. Mark the first with class "lead".
+          <!-- DECOMPOSED-PROJECT ROLLUP ONLY: lead with a shared Foundation node. It uses a
+               .t-eyebrow ("Shared") instead of a size chip, and gets the .foundation class for the
+               filled node. DELETE this node for a roadmap of genuinely distinct projects. -->
+          <div class="t-item foundation lead">
+            <span class="t-eyebrow">Shared</span>
+            <div class="t-node"></div>
+            <div class="t-title">Foundation</div>
+            <div class="t-weeks">{{FOUNDATION_WEEKS}}</div>
+          </div>
+          <!-- {{#each slice}} : repeat one .t-item per slice.
+               Reading order top->bottom: size chip, node, title, week range.
                .t-size class: s = Small, sm = S-M, m = Medium, l = Large, xl = X-Large. -->
-          <div class="t-item lead">
-            <div class="t-date">{{SLICE_WEEKS}}</div><div class="t-node"></div>
-            <div class="t-title">{{SLICE_NAME}}</div><span class="t-size {{SLICE_SIZE_CLASS}}">{{SLICE_SIZE}}</span>
+          <div class="t-item">
+            <span class="t-size {{SLICE_SIZE_CLASS}}">{{SLICE_SIZE}}</span>
+            <div class="t-node"></div>
+            <div class="t-title">{{SLICE_NAME}}</div>
+            <div class="t-weeks">{{SLICE_WEEKS}}</div>
           </div>
           <!-- {{/each}} -->
         </div>
         <p class="total"><strong>{{WEEK_RANGE}}</strong> {{ROLLUP_TOTAL_NOTE}}</p>
+        <!-- DECOMPOSED-PROJECT ROLLUP ONLY: the "designed as one experience" framing. -->
+        <p class="muted" style="font-size:13px;margin-top:10px;">{{COHERENCE_NOTE}}</p>
       </div>
     </section>
 
     <section id="plans">
       <h2>Per-slice plans</h2>
       <div class="body">
-        <p class="muted">Each slice ships as its own project, so each gets its own design plan.</p>
-        <!-- {{#each slice}} : repeat one .slice card per slice. -->
+        <p class="muted">{{PLANS_INTRO}}</p>
+        <!-- DECOMPOSED-PROJECT ROLLUP ONLY: the shared Foundation leads the list as a tinted card.
+             It carries an .eyebrow instead of a size chip, and the .foundation class for the tint.
+             DELETE this card for a roadmap of genuinely distinct projects. -->
+        <div class="slice foundation">
+          <span class="eyebrow">Shared foundation &middot; designed once, feeds every slice</span>
+          <div class="slice-head">
+            <span class="name">{{FOUNDATION_NAME}}</span>
+            <span class="dur">{{FOUNDATION_DURATION}}</span>
+            <span class="note">{{FOUNDATION_NOTE}}</span>
+          </div>
+          <div class="plan">
+            <span class="pill">{{BLOCK}}</span><span class="conn"></span>
+            <span class="pill">{{BLOCK}}</span>
+          </div>
+        </div>
+        <!-- {{#each slice}} : repeat one .slice card per slice. Slices are SLIMMED — discovery
+             that moved into the Foundation is removed; keep only slice-specific work. -->
         <div class="slice">
+          <span class="t-size {{SLICE_SIZE_CLASS}}">{{SLICE_SIZE}}</span>
           <div class="slice-head">
             <span class="name">{{SLICE_NAME}}</span>
-            <span class="t-size {{SLICE_SIZE_CLASS}}">{{SLICE_SIZE}}</span>
             <span class="dur">{{SLICE_DURATION}}</span>
             <span class="note">{{SLICE_NOTE}}</span>
           </div>
